@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNN Student Housing - Find Your Perfect Accommodation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="css/style.css">
+      
+    
+   
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-home"></i> UNISTAY</h1>
+            <p>Find your perfect accommodation near University of Nigeria, Nsukka</p>
+        </header>
+
+        <div class="controls-container">
+            <div>
+                 <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by location..... " >
+            </div>
+            </div>
+                 
+          
+
+            <div class="filter-row">
+                <div class="filter-item">
+                    <label for="locationFilter"><i class="fas fa-map-marker-alt"></i> Location</label>
+                    <select id="locationFilter">
+                        <option value="">All Locations</option>
+                        <option value="Behind flat">Behind flat</option>
+                        <option value="Odim">Odim</option>
+                        <option value="Hilltop">Hilltop</option>
+                        <option value="Odenigwe">Odenigwe</option>
+                        <option value="Onuiyi">Onuiyi</option>
+                    </select>
+                </div>
+
+
+
+
+
+
+
+                <div class="filter-item">
+                    <label for="bedroomsFilter"><i class="fas fa-bed"></i> Bedrooms</label>
+                    <select id="bedroomsFilter">
+                        <option value="">All Types</option>
+                        <option value="Studio">Studio</option>
+                        <option value="0">0 Bedroom</option>
+                        <option value="1">1 Bedroom</option>
+                        <option value="2">2 Bedrooms</option>
+                        <option value="3">3 Bedrooms</option>
+                        <option value="4">4 Bedrooms</option>
+                        <option value="5">5 Bedrooms</option>
+                    </select>
+                </div>
+
+                <div class="filter-item">
+                    <label for="furnishingFilter"><i class="fas fa-couch"></i> Furnishing</label>
+                    <select id="furnishingFilter">
+                        <option value="">All Types</option>
+                        <option value="Unfurnished">Unfurnished</option>
+                        <option value="Semi-Furnished">Semi-Furnished</option>
+                        <option value="Fully Furnished">Fully Furnished</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="priceFilter"><i class="fas fa-tag"></i> Price Range</label>
+                    <select id="priceFilter">
+                        <option value="">All Prices</option>
+                        <option value="150000">₦150,500</option>
+                        <option value="180000"> ₦180,000</option>
+                        <option value="200000"> ₦200,000</option>
+                        <option value="250000"> ₦250,000</option>
+                        <option value="300000"> ₦300,000</option>
+                        <option value="400000"> ₦400,000</option>
+                        <option value="500000"> ₦500,000</option>
+                        <option value="600000"> ₦600,000</option>
+                        <option value="750000"> ₦750,000</option>
+                        <option value="850000"> ₦850,000</option>
+                        <option value="1000000"> ₦1,100,000</option>
+
+
+
+                    </select>
+                </div>
+             <div class="filter-item action-box">
+                <label>&nbsp;</label>
+                <button id="resetBtn" class="clear-btn" onclick="resetFilters()">Clear All</button>
+
+             </div>
+       
+    </div>
+
+            </div>
+        </div>
+
+
+    </div>
+   
+    <div class="housing-grid" id="housingGrid">
+
+
+
+        <div class="housing-grid" id="housingGrid">
+            <!-- Housing cards will be generated here -->
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <button class="close-modal" id="closeModal"><i class="fas fa-times"></i></button>
+
+        <div class="modal-nav">
+            <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+            <button class="nav-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        <div class="modal-content">
+            <div class="modal-image" id="modalImage">
+                <div class="modal-badge" id="modalBadge">Popular</div>
+                <button class="inner-nav-btn prev" onclick="moveModalSlide(-1, event)">&#10094;</button>
+                <button class="inner-nav-btn next" onclick="moveModalSlide(1, event)">&#10095;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <div class="modal-price" id="modalPrice"></div>
+                </div>
+
+                <div class="modal-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="modalLocation"></span>
+                </div>
+
+                <div class="modal-features">
+                    <div class="modal-feature">
+                        <i class="fas fa-bed"></i>
+                        <div>Bedrooms</div>
+                        <strong id="modalBedrooms"></strong>
+                    </div>
+                    <div class="modal-feature">
+                        <i class="fas fa-bath"></i>
+                        <div>Bathrooms</div>
+                        <strong id="modalBathrooms"></strong>
+                    </div>
+                    <div class="modal-feature">
+                        <i class="fas fa-couch"></i>
+                        <div>Furnished</div>
+                        <strong id="modalFurnished"></strong>
+                    </div>
+                </div>
+
+                <p class="modal-description" id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+
+  
+
+
+    <footer>
+        <p>&copy; 2025 UNN Student Housing - All Rights Reserved</p>
+        <p>Made with 💚 for UNN Students</p>
+    </footer>
+
+   
+
+    <script src="JS/script.js"></script>
+
+
+    <a href="add-house.html" class="fab">
+        <span class="plus-icon">+</span>
+        <span class="fab-text">Add House</span>
+    </a>
+
+    <button onclick="unlockAdmin()" style="position: fixed; bottom: 0; left: 0; width: 15px; height: 15px; background: rgba(0,0,0,0.2); border: none; z-index: 10000; cursor: pointer;"> </button>
+
+</body>
+
+</html>

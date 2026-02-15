@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Property | UniStay</title>
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h2>✒️Add a New Listing</h2>
+        <p>Fill in the details below to upload a property to the website.</p>
+       
+        <form id="addHouseForm">
+            <div class="input-group">
+                <label>Property Title</label>
+                <input type="text" id="title" placeholder="e.g. 3 Bedroom Flat near UNN" required>
+            </div>
+
+            <div class="input-group">
+                <label>Price (Naira)</label>
+                <input type="number" id="price" placeholder="e.g. 150000" required>
+            </div>
+
+            <div class="input-group">
+                <label>Exact Location</label>
+                <input type="text" id="location" placeholder="e.g. Odenigwe, Nsukka" required>
+            </div>
+            <div class="input-group">
+                <label for="bedrooms">Number of Bedrooms</label>
+                <input type="number" id="bedrooms" name="bedrooms" placeholder="e.g 1" required>
+            </div>
+
+             <div class="input-group">
+                <label for="bathrooms">Number of Bathrooms</label>
+                <input type="number" id="bathrooms" name="bathrooms" placeholder="e.g 1" required>
+            </div>
+            <div class="input-group">
+                <label>Property Badge</label>
+
+            </div>
+            <div class="input-group">
+                <label>Furnishing Status</label>
+                <select  id="addHouseFurnished" name="furnished" required>
+                    <option value="">Select Status</option>
+                    <option value="Furnished">Furnished</option>
+                    <option value="Unfurnished">Unfurnished</option>
+                    <option value="Semi-Furnished">Semi-Furnished</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Description</label>
+                <textarea id="description" rows="4" placeholder="Describe the rooms, water supply, light, etc."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Upload Images (Select Kitchen, Bedroom, etc.)</label>
+                <input type="file" id="houseImages" accept="image/*" multiple required>
+                <small>You can select multiple photos at once.</small>
+            </div>
+
+            <div class="input-group">
+                <label style="color: red; font-weight: bold;">Admin Secret Key</label>
+                <input type="password" id="adminKey" placeholder="Enter your secret key" required>
+            </div>
+
+            <button type="submit" class="upload-btn"> Post Property</button>
+            <a href="housing.html" class="back-btn">Cancel and Go Back</a>
+        </form>
+    </div>
+
+    <script>
+        
+
+        // Reset Button Script
+      const resetBtn = document.getElementById('resetBtn');
+
+if (resetBtn) { // The "Shield"
+    resetBtn.addEventListener('click', () => {
+        // Reset all inputs to default
+        searchInput.value = '';
+        locationFilter.value = '';
+        bedroomsFilter.value = '';
+        furnishingFilter.value = '';
+        priceFilter.value = '';
+       
+        // Show everything again
+        renderHousing(housingData);
+    });
+}
+
+
+
+        
+
+
+const uploadForm = document.getElementById('uploadForm');
+
+if (uploadForm) {
+    console.log("Upload form found and connected!"); // This will show in console if it works
+    uploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log("Post Property button clicked!");
+
+        const formData = new FormData(uploadForm);
+       
+        try {
+            // Your actual fetch/post logic goes here
+            alert("House Posted Successfully!");
+        } catch (error) {
+            console.error("Upload failed:", error);
+        }
+    });
+}
+
+// --- PART 1: FOR THE HOUSING PAGE (Displaying) ---
+if (document.getElementById('house-container')) {
+    async function displayHouses() {
+        const response = await fetch('/api/houses');
+        const houses = await response.json();
+        const container = document.getElementById('house-container');
+
+        houses.forEach(house => {
+            const houseCard = `
+                <div class="house-card">
+                    <img src="${house.images[0]}" alt="House Image">
+                    <div class="house-info">
+                        <h3>${house.title}</h3>
+                        <p class="price">₦${house.price}</p>
+                        <p class="location">${house.location}</p>
+                        <div class="house-details">
+                            <span><i class="fas fa-bed"></i> ${house.bedrooms || 0}</span>
+                            <span><i class="fas fa-bath"></i> ${house.bathrooms || 0}</span>
+                        </div>
+                        <button class="view-btn">View Details</button>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', houseCard);
+        });
+    }
+    displayHouses();
+}
+
+// --- PART 2: FOR THE ADD-HOUSE PAGE (Uploading) ---
+const addHouseForm = document.getElementById('addHouseForm');
+if (addHouseForm) {
+    addHouseForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+       
+        const houseData = {
+            title: document.getElementById('title').value,
+            price: document.getElementById('price').value,
+            location: document.getElementById('location').value,
+            bedrooms: document.getElementById('bedrooms').value,
+            bathrooms: document.getElementById('bathrooms').value,
+            furnished: document.getElementById('furnishing').value,
+            description: document.getElementById('description').value,
+            images: ["images/2bedroom.jpg"],
+            adminKey: document.getElementById('adminKey').value
+        };
+
+        const response = await fetch('http://localhost:3000/api/houses', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(houseData)
+        });
+
+        if (response.ok) {
+            alert("House Posted Successfully!");
+            addHouseForm.reset();
+        }
+    });
+}
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
