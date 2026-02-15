@@ -44,7 +44,7 @@
             </div>
             <div class="input-group">
                 <label>Furnishing Status</label>
-                <select  id="addHouseFurnished" name="furnished" required>
+                <select  id="Furnished" name="furnished" required>
                     <option value="">Select Status</option>
                     <option value="Furnished">Furnished</option>
                     <option value="Unfurnished">Unfurnished</option>
@@ -161,10 +161,10 @@ if (addHouseForm) {
             furnished: document.getElementById('furnishing').value,
             description: document.getElementById('description').value,
             images: ["images/2bedroom.jpg"],
-            adminKey: document.getElementById('adminKey').value
+            adminKey: document.getElementById('adminKey').value.
         };
 
-        const response = await fetch('http://localhost:3000/api/houses', {
+        const response = await fetch('/api/houses', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(houseData)

@@ -768,7 +768,7 @@ textarea{
 .modal-nav{
     display: none !important;
 }
-#addHouseFurnished {
+#Furnished {
     display: block !important;
     width: 100% !important;
     height: 48px !important;    /* Match the height of the bathrooms input */
