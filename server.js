@@ -1,11 +1,12 @@
-const path = require('path');
-app.use(express.static(path.join(__dirname, 'public')));
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 app.use(cors());
 app.use(express.json()); 
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
 const House = require('./models/house');
 
