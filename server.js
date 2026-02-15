@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 app.use(cors());
-app.use(express.json()); 
+
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -18,7 +18,8 @@ mongoose.connect(dbURI)
     .then(() => console.log("🚀 Connection Successful: Warehouse is open!"))
     .catch((err) => console.log("❌ Connection Error:", err));
 
-
+app.use(express.json()); // code to allows the server to read data from my form
+app.use(express.urlencoded({ extended: true }));
 
 app.post('/api/houses', async (req, res) => {
     const { title, price, location, description,bedrooms,bathrooms,images,furnished,badge, adminKey } = req.body;
